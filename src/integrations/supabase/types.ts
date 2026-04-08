@@ -14,7 +14,115 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      conversations: {
+        Row: {
+          created_at: string
+          dataset_id: string | null
+          id: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          dataset_id?: string | null
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          dataset_id?: string | null
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversations_dataset_id_fkey"
+            columns: ["dataset_id"]
+            isOneToOne: false
+            referencedRelation: "datasets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      datasets: {
+        Row: {
+          cleaning_suggestions: Json | null
+          column_info: Json | null
+          created_at: string
+          file_url: string
+          filename: string
+          id: string
+          row_count: number | null
+          summary_json: Json | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          cleaning_suggestions?: Json | null
+          column_info?: Json | null
+          created_at?: string
+          file_url: string
+          filename: string
+          id?: string
+          row_count?: number | null
+          summary_json?: Json | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          cleaning_suggestions?: Json | null
+          column_info?: Json | null
+          created_at?: string
+          file_url?: string
+          filename?: string
+          id?: string
+          row_count?: number | null
+          summary_json?: Json | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          chart_config: Json | null
+          content: string
+          conversation_id: string
+          created_at: string
+          id: string
+          role: string
+        }
+        Insert: {
+          chart_config?: Json | null
+          content: string
+          conversation_id: string
+          created_at?: string
+          id?: string
+          role: string
+        }
+        Update: {
+          chart_config?: Json | null
+          content?: string
+          conversation_id?: string
+          created_at?: string
+          id?: string
+          role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
