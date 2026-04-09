@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import * as XLSX from "https://esm.sh/xlsx@0.18.5";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -77,9 +78,22 @@ serve(async (req) => {
     // Download file content
     const fileResponse = await fetch(fileUrl);
     if (!fileResponse.ok) throw new Error("Failed to download file");
-    const content = await fileResponse.text();
     
-    const { headers, rows } = parseCSV(content);
+    const ext = filename.split(".").pop()?.toLowerCase();
+    let headers: string[];
+    let rows: string[][];
+    
+    if (ext === "xlsx" || ext === "xls") {
+      const buffer = await fileResponse.arrayBuffer();
+      const workbook = XLSX.read(new Uint8Array(buffer), { type: "array" });
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const jsonData: string[][] = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: "" });
+      headers = (jsonData[0] || []).map(String);
+      rows = jsonData.slice(1).map(row => row.map(String));
+    } else {
+      const content = await fileResponse.text();
+      ({ headers, rows } = parseCSV(content));
+    }
     
     // Analyze each column
     const columnInfo = headers.map((header, i) => {
