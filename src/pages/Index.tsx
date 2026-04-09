@@ -1,7 +1,7 @@
 import { AnalystChat } from "@/components/AnalystChat";
 import { BarChart3 } from "lucide-react";
 
-const ANON_USER_ID = "anonymous";
+const ANON_USER_ID = "00000000-0000-0000-0000-000000000000";
 
 const Index = () => {
   return (
