@@ -34,8 +34,8 @@ export function FileUpload({ userId, onDatasetReady }: Props) {
     if (!file) return;
 
     const ext = file.name.split(".").pop()?.toLowerCase();
-    if (!["csv", "tsv"].includes(ext || "")) {
-      toast.error("Only CSV and TSV files are supported currently");
+    if (!["csv", "tsv", "xlsx", "xls"].includes(ext || "")) {
+      toast.error("Only CSV, TSV, and Excel files are supported");
       return;
     }
 
@@ -108,7 +108,7 @@ export function FileUpload({ userId, onDatasetReady }: Props) {
       <input
         ref={fileRef}
         type="file"
-        accept=".csv,.tsv"
+        accept=".csv,.tsv,.xlsx,.xls"
         className="hidden"
         onChange={(e) => e.target.files && handleFiles(e.target.files)}
         multiple={false}
@@ -142,9 +142,9 @@ export function FileUpload({ userId, onDatasetReady }: Props) {
           >
             <Upload className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
             <p className="text-sm text-secondary-foreground font-medium">
-              Drop CSV files here or click to upload
+              Drop files here or click to upload
             </p>
-            <p className="text-xs text-muted-foreground mt-1">Supports CSV, TSV (max 10MB)</p>
+            <p className="text-xs text-muted-foreground mt-1">Supports CSV, TSV, Excel (max 10MB)</p>
           </motion.div>
         )}
       </AnimatePresence>
