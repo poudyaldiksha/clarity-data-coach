@@ -96,22 +96,48 @@ export function AnalystChat({ userId }: Props) {
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 md:px-8 py-6 space-y-6">
         {messages.length === 0 && !dataset && (
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
             className="flex flex-col items-center justify-center h-full gap-8 pt-12"
           >
-            <div className="text-center space-y-3">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary text-primary text-sm font-medium">
-                <Sparkles className="w-4 h-4" />
+            <div className="text-center space-y-4">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.1, duration: 0.5 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-primary text-sm font-medium"
+              >
+                <Sparkles className="w-4 h-4 animate-pulse" />
                 AI Data Analysis Mentor
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold">What data challenge are you solving?</h2>
-              <p className="text-muted-foreground max-w-lg">
+              </motion.div>
+              <motion.h2
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.5 }}
+                className="text-3xl md:text-4xl font-bold tracking-tight"
+              >
+                What data challenge are
+                <br />
+                <span className="gradient-text">you solving?</span>
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                className="text-muted-foreground max-w-lg text-base"
+              >
                 Upload a dataset or ask about data cleaning, SQL, visualizations, Excel, or any analysis problem.
-              </p>
+              </motion.p>
             </div>
 
-            <FileUpload userId={userId} onDatasetReady={handleDatasetReady} />
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.5 }}
+            >
+              <FileUpload userId={userId} onDatasetReady={handleDatasetReady} />
+            </motion.div>
             <PromptSuggestions onSelect={handleSend} />
           </motion.div>
         )}
@@ -134,7 +160,7 @@ export function AnalystChat({ userId }: Props) {
             >
               {msg.role === "user" ? (
                 <div className="flex justify-end">
-                  <div className="bg-primary text-primary-foreground px-5 py-3 rounded-2xl rounded-br-md max-w-md font-medium">
+                  <div className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground px-5 py-3 rounded-2xl rounded-br-md max-w-md font-medium shadow-lg shadow-primary/10">
                     {msg.content}
                   </div>
                 </div>
@@ -148,8 +174,8 @@ export function AnalystChat({ userId }: Props) {
         </AnimatePresence>
 
         {isLoading && messages[messages.length - 1]?.role !== "assistant" && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-muted-foreground text-sm pl-2">
-            <span className="flex gap-1">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-3 text-muted-foreground text-sm pl-2">
+            <span className="flex gap-1.5">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" />
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" style={{ animationDelay: "0.3s" }} />
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse-glow" style={{ animationDelay: "0.6s" }} />
@@ -165,7 +191,8 @@ export function AnalystChat({ userId }: Props) {
         )}
       </div>
 
-      <div className="border-t border-border bg-card/50 backdrop-blur-sm px-4 md:px-8 py-4">
+      {/* Input bar */}
+      <div className="border-t border-border/50 glass-strong px-4 md:px-8 py-4">
         <form
           onSubmit={(e) => { e.preventDefault(); handleSend(); }}
           className="flex gap-3 max-w-3xl mx-auto"
@@ -173,7 +200,7 @@ export function AnalystChat({ userId }: Props) {
           <button
             type="button"
             onClick={() => setShowUpload(!showUpload)}
-            className="bg-secondary rounded-xl px-3 py-3 text-muted-foreground hover:text-primary transition-colors"
+            className="glass rounded-xl px-3 py-3 text-muted-foreground hover:text-primary hover:border-primary/30 transition-all duration-300"
             title="Upload dataset"
           >
             <Upload className="w-5 h-5" />
@@ -182,12 +209,12 @@ export function AnalystChat({ userId }: Props) {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder={dataset ? `Ask about ${dataset.summary.filename}...` : "Ask about data cleaning, SQL, charts, Excel..."}
-            className="flex-1 bg-secondary border-none rounded-xl px-5 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-shadow"
+            className="flex-1 glass rounded-xl px-5 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/30 transition-all duration-300"
           />
           <button
             type="submit"
             disabled={!input.trim() || isLoading}
-            className="bg-primary text-primary-foreground rounded-xl px-5 py-3 font-medium hover:brightness-110 disabled:opacity-40 transition-all flex items-center gap-2"
+            className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-xl px-5 py-3 font-medium hover:shadow-lg hover:shadow-primary/20 disabled:opacity-40 transition-all duration-300 flex items-center gap-2"
           >
             <Send className="w-4 h-4" />
           </button>
