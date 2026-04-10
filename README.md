@@ -1,4 +1,4 @@
-# 📊 Data Mentor
+# 📊 Data Coach
 
 ## Your AI Data Analysis Guide
 
@@ -6,7 +6,7 @@
 
 ## 🚀 Overview
 
-Data Mentor is an AI-powered assistant designed to help you understand, analyze, and think through data problems step by step.
+Data Coach is an AI-powered assistant designed to help you understand, analyze, and think through data problems step by step.
 
 Instead of just giving answers, it acts like a mentor by:
 Guiding your reasoning
