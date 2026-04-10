@@ -19,7 +19,7 @@ const Index = () => {
             <BarChart3 className="w-5 h-5 text-primary" />
           </div>
           <div>
-            <h1 className="text-lg font-bold gradient-text tracking-tight">DataMentor</h1>
+            <h1 className="text-lg font-bold gradient-text tracking-tight">DataCoach</h1>
             <p className="text-[11px] text-muted-foreground tracking-wide uppercase">AI Data Analysis Guide</p>
           </div>
         </div>
