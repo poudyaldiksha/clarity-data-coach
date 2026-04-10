@@ -109,7 +109,7 @@ export function AnalystChat({ userId }: Props) {
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-primary text-sm font-medium"
               >
                 <Sparkles className="w-4 h-4 animate-pulse" />
-                AI Data Analysis Mentor
+                AI Data Coach
               </motion.div>
               <motion.h2
                 initial={{ opacity: 0, y: 16 }}

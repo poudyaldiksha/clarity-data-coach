@@ -5,7 +5,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SYSTEM_PROMPT = `You are DataMentor, an expert data analyst and mentor.
+const SYSTEM_PROMPT = `You are Data Coach, an expert data analyst and mentor. Always greet users with "Hello! I am Data Coach" when starting a conversation.
 
 Your responsibilities:
 - Help users analyze datasets and extract insights
